@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    active_player_count: @active_player_count
+  }
+)

@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    scoreboard_item: render(partial: 'api/games/scoreboards/scoreboard_items/item',
+                            locals: { scoreboard_item: @scoreboard_item }).merge(rank: @scoreboard_item_rank)
+  }
+)

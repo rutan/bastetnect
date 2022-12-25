@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    players: render(partial: 'item', collection: @players, as: :player),
+    total_count: @players.total_count
+  }
+)

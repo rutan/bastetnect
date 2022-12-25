@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    game: render(partial: 'item', locals: { game: @game })
+  }
+)

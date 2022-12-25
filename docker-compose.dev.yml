@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build: ./dev
+    env_file: '.env'
+    command: 'bash -c "rm -rf /app/tmp/pids && bundle exec rails s -b 0.0.0.0"'
+    ports:
+      - 3000:3000
+    volumes:
+      - ${CURRENT_PATH}:/app
+      - bundle_volume:/usr/local/bundle
+      - tmp_volume:/app/tmp
+    depends_on:
+      - db
+  db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+volumes:
+  bundle_volume:
+  tmp_volume:
+  db_volume:

@@ -1,0 +1,91 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  DisplayCopNames: true
+  Exclude:
+    - config.ru
+    - bin/**/*
+    - db/**/*
+    - node_modules/**/*
+    - out/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+
+# use japanese
+Style/AsciiComments:
+  Enabled: false
+
+# no document
+Style/Documentation:
+  Enabled: false
+
+# use `!!hoge`
+Style/DoubleNegation:
+  Enabled: false
+
+# empty case is useful
+#
+#  case
+#  when user.admin?
+#    ...
+#  when user.active?
+#    ...
+#  else
+#    ...
+#  end
+Style/EmptyCaseCondition:
+  Enabled: false
+
+# my preference :)
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# use `-> {}` syntax
+Style/Lambda:
+  EnforcedStyle: literal
+
+# I feel `.zero?` difficult to understand...
+Style/NumericPredicate:
+  Enabled: false
+
+# %w[a b c] or %i[a b c] ?
+Style/SymbolArray:
+  Enabled: false
+
+# incompatible DSL
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+
+# my preference :)
+Layout/LineLength:
+  Max: 120
+
+# incompatible DSL
+Metrics/BlockLength:
+  Enabled: false
+
+# :(
+Metrics/MethodLength:
+  Max: 20
+
+# ex) render_404
+Naming/VariableNumber:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false

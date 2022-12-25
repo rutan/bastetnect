@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    scoreboard_items: render(partial: 'item', collection: @scoreboard_items,
+                             as: :scoreboard_item).map.with_index do |item, i|
+                        item.merge(rank: @start_index + i + 1)
+                      end,
+    total_count: @scoreboard_items.total_count
+  }
+)

@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+jsend_success(
+  data: {
+    game_signal: render(partial: 'api/games/game_signals/item', locals: { game_signal: @game_signal })
+  }
+)

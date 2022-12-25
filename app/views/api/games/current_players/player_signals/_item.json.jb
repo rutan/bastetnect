@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+{
+  id: player_signal.id,
+  sender: render(partial: 'api/games/players/item_summary', locals: { player: player_signal.sender }),
+  data: player_signal.data,
+  createdAt: player_signal.created_at.to_i
+}

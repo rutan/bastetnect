@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+{
+  name: game.name,
+  version: game.version,
+  play_count: game.play_count
+}
