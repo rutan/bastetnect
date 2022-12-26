@@ -2,7 +2,8 @@
 
 jsend_success(
   data: {
-    players: render(partial: 'item', collection: @players, as: :player),
+    players: render(partial: 'item', collection: @players, as: :player,
+                    locals: { with_shared_save: @with_shared_save }),
     total_count: @players.total_count
   }
 )

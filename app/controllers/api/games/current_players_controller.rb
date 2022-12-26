@@ -31,7 +31,7 @@ module Api
       private
 
       def current_player_params
-        params.required(:current_player).permit(:name, :shared_data)
+        params.required(:current_player).permit(:name, shared_save_attributes: [:data])
       end
     end
   end

@@ -52,7 +52,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
     end
   end
 
-  describe 'PUT /create' do
+  describe 'PUT /update' do
     subject :update_current_player do
       put api_game_current_player_url(
         game_name: game.name,
@@ -70,7 +70,9 @@ RSpec.describe '/api/games/:game_name/current_player' do
       let(:current_player) do
         {
           name: 'Rutan',
-          shared_data: '良いデータ'
+          shared_save_attributes: {
+            data: '良いデータ'
+          }
         }
       end
 
@@ -79,7 +81,31 @@ RSpec.describe '/api/games/:game_name/current_player' do
         expect(response).to have_http_status(:ok)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :current_player, :name)).to eq current_player[:name]
-        expect(response_json.dig(:data, :current_player, :shared_data)).to eq current_player[:shared_data]
+        expect(response_json.dig(:data, :current_player, :shared_save,
+                                 :data)).to eq current_player[:shared_save_attributes][:data]
+      end
+    end
+
+    context 'when name only' do
+      let(:player) do
+        create(:player, game:).tap do |ins|
+          ins.shared_save.update(data: shared_value)
+        end
+      end
+      let(:shared_value) { 'expect data' }
+      let(:authorization_header) { "Bearer #{player.generate_token}" }
+      let(:current_player) do
+        {
+          name: 'Rutan'
+        }
+      end
+
+      it do
+        update_current_player
+        expect(response).to have_http_status(:ok)
+        expect(response_json[:status]).to eq 'success'
+        expect(response_json.dig(:data, :current_player, :name)).to eq current_player[:name]
+        expect(response_json.dig(:data, :current_player, :shared_save, :data)).to eq shared_value
       end
     end
   end

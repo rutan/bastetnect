@@ -2,6 +2,7 @@
 
 jsend_success(
   data: {
-    current_player: render(partial: 'api/games/players/item', locals: { player: @current_player })
+    current_player: render(partial: 'api/games/players/item',
+                           locals: { player: @current_player, with_shared_save: true })
   }
 )

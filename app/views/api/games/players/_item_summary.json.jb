@@ -1,6 +1,0 @@
-# frozen_string_literal: true
-
-{
-  id: player.id,
-  name: player.name
-}

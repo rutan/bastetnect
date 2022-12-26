@@ -15,5 +15,12 @@ module Api
         raise InvalidParameterError, :limit unless limit.between?(1, max)
       end
     end
+
+    def parse_ids(key, max: 100)
+      ids = params[key].to_s.split(/\s*,\s*/)
+      raise InvalidParameterError, key unless ids.size <= max
+
+      ids.map(&:to_i)
+    end
   end
 end

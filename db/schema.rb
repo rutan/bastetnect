@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_24_183159) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_161958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,7 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_183159) do
     t.bigint "game_id", null: false
     t.string "name", limit: 32, null: false
     t.integer "status", default: 0
-    t.text "shared_data", null: false
     t.datetime "last_play_at", default: -> { "now()" }, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -90,6 +89,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_183159) do
     t.index ["game_id"], name: "index_scoreboards_on_game_id"
   end
 
+  create_table "shared_saves", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.text "data", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_shared_saves_on_player_id", unique: true
+  end
+
   add_foreign_key "allowed_origins", "games"
   add_foreign_key "game_signals", "games"
   add_foreign_key "game_signals", "players", column: "sender_id"
@@ -99,4 +106,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_183159) do
   add_foreign_key "scoreboard_items", "players"
   add_foreign_key "scoreboard_items", "scoreboards"
   add_foreign_key "scoreboards", "games"
+  add_foreign_key "shared_saves", "players"
 end

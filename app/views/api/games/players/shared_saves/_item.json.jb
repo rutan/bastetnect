@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+{
+  data: shared_save.data
+}

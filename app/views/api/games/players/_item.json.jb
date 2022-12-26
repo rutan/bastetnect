@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
+with_shared_save ||= false
+
 {
   id: player.id,
-  name: player.name,
-  shared_data: player.shared_data
-}
+  name: player.name
+}.tap do |json|
+  if with_shared_save
+    json[:shared_save] =
+      render(partial: 'api/games/players/shared_saves/item', locals: { shared_save: player.shared_save })
+  end
+end

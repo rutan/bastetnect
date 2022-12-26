@@ -8,18 +8,21 @@
 
 
 Game.create!(name: 'test').tap do |game|
-  scoreboard = Scoreboard.create!(game:, name: 'scoreboard', index: 1, rank_order: :desc)
+  ActiveRecord::Base.transaction do
+    scoreboard = Scoreboard.create!(game:, name: 'scoreboard', index: 1, rank_order: :desc)
 
-  100.times do |i|
-    Player.create!(game:, name: "player-#{i}", shared_data: "#{{data: i}.to_json}").tap do |player|
-      ScoreboardItem.create!(scoreboard:, player:, score: rand(100000))
+    100.times do |i|
+      Player.create!(game:, name: "player-#{i}").tap do |player|
+        player.shared_save.update(data: "#{{data: i}.to_json}")
+        ScoreboardItem.create!(scoreboard:, player:, score: rand(100000))
+      end
     end
-  end
 
-  players = game.players.to_a
-  500.times do |i|
-    sender, receiver = players.sample(2)
-    GameSignal.create!(game:, sender:, data: "#{{data: i}.to_json}")
-    PlayerSignal.create!(player: receiver, sender: sender, data: "#{{data: i}.to_json}")
+    players = game.players.to_a
+    500.times do |i|
+      sender, receiver = players.sample(2)
+      GameSignal.create!(game:, sender:, data: "#{{data: i}.to_json}")
+      PlayerSignal.create!(player: receiver, sender: sender, data: "#{{data: i}.to_json}")
+    end
   end
 end

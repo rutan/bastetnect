@@ -2,6 +2,6 @@
 
 jsend_success(
   data: {
-    player: render(partial: 'item', locals: { player: @player })
+    player: render(partial: 'item', locals: { player: @player, with_shared_save: @with_shared_save })
   }
 )

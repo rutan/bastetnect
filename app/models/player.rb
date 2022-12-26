@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Player < ApplicationRecord
-  MAX_SHARED_DATA_BYTESIZE = 4.kilobytes
-
   belongs_to :game
+
+  has_one :shared_save, dependent: :destroy
+  accepts_nested_attributes_for :shared_save
+
   has_many :player_signals, dependent: :restrict_with_exception
   has_many :sent_game_signals,
            class_name: 'GameSignal',
@@ -20,9 +22,6 @@ class Player < ApplicationRecord
 
   validates :name, presence: true, length: { in: 1..32 }
   validates :status, presence: true
-  validates :shared_data,
-            bytesize: { maximum: MAX_SHARED_DATA_BYTESIZE },
-            allow_nil: false
 
   enum :status, {
     active: 0,
@@ -44,10 +43,8 @@ class Player < ApplicationRecord
     order(last_play_at: :desc)
   end
 
-  after_initialize :setup_default_attributes
-
-  def setup_default_attributes
-    self.shared_data ||= ''
+  def shared_save
+    super || build_shared_save
   end
 
   def generate_token

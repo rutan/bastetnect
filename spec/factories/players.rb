@@ -7,5 +7,9 @@ FactoryBot.define do
       "name#{n}"
     end
     status { 0 }
+
+    after(:build) do |ins|
+      build(:shared_save, player: ins)
+    end
   end
 end
