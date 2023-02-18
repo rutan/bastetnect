@@ -19,7 +19,7 @@ module Api
         @game_signal = GameSignal.create!(
           game:,
           sender: current_player,
-          data: params[:data] || ''
+          data: game_signal_params[:data] || ''
         )
 
         render :show, status: :created
@@ -27,8 +27,8 @@ module Api
 
       private
 
-      def current_player_params
-        params.permit(:name, :shared_data)
+      def game_signal_params
+        params.permit(:data)
       end
     end
   end

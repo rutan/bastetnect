@@ -12,7 +12,7 @@ module Api
       private
 
       def param_minutes
-        (params[:minutes] || 5).to_i.tap do |minutes|
+        (params.permit(:minutes)[:minutes] || 5).to_i.tap do |minutes|
           raise InvalidParameterError, :minutes unless minutes.between?(1, 60)
         end
       end

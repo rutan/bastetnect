@@ -11,7 +11,8 @@ module Api
       private
 
       def scoreboard
-        Scoreboard.find_by!(game:, index: params[:index])
+        index = params.permit(:index)[:index]
+        Scoreboard.find_by!(game:, index:)
       end
     end
   end

@@ -4,6 +4,8 @@
 #
 
 Rails.application.routes.draw do
+  root 'root#show', defaults: { format: :json }
+
   # /api
   namespace :api, defaults: { format: :json } do
     # /api/games

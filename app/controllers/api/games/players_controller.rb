@@ -23,7 +23,7 @@ module Api
 
           render :index
         else
-          @player = game_players.visible_for_show.find(params[:id])
+          @player = game_players.visible_for_show.find(ids.first)
         end
       end
 
@@ -34,7 +34,7 @@ module Api
       end
 
       def set_with_shared_save
-        @with_shared_save = params[:with_shared_save].to_i != 0
+        @with_shared_save = params.permit(:with_shared_save)[:with_shared_save].to_i != 0
       end
     end
   end
