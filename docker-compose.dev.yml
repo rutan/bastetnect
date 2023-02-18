@@ -2,7 +2,9 @@ version: '3'
 
 services:
   app:
-    build: ./dev
+    build:
+      context: .
+      dockerfile: ./dev/Dockerfile
     env_file: '.env'
     command: 'bash -c "rm -rf /app/tmp/pids && bundle exec rails s -b 0.0.0.0"'
     ports:
