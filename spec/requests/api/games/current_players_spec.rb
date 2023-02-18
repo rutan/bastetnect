@@ -6,7 +6,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
   let(:game) { create(:game) }
 
   describe 'GET /show' do
-    subject :show_current_player do
+    subject do
       get api_game_current_player_url(game_name: game.name),
           headers: {
             Authorization: authorization_header
@@ -19,7 +19,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
       let(:authorization_header) { "Bearer #{player.generate_token}" }
 
       it do
-        show_current_player
+        subject
         expect(response).to have_http_status(:ok)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :current_player, :id)).to eq player.id
@@ -28,11 +28,15 @@ RSpec.describe '/api/games/:game_name/current_player' do
   end
 
   describe 'POST /create' do
-    subject :create_current_player do
+    subject do
       post api_game_current_player_url(
         game_name: game.name,
         current_player:
-      ), as: :json
+      ),
+           headers: {
+             'X-Requested-With': 'rspec'
+           },
+           as: :json
     end
 
     context 'when valid name' do
@@ -43,7 +47,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
       end
 
       it do
-        create_current_player
+        subject
         expect(response).to have_http_status(:created)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :current_player, :name)).to eq current_player[:name]
@@ -53,13 +57,14 @@ RSpec.describe '/api/games/:game_name/current_player' do
   end
 
   describe 'PUT /update' do
-    subject :update_current_player do
+    subject do
       put api_game_current_player_url(
         game_name: game.name,
         current_player:
       ),
           headers: {
-            Authorization: authorization_header
+            Authorization: authorization_header,
+            'X-Requested-With': 'rspec'
           },
           as: :json
     end
@@ -77,7 +82,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
       end
 
       it do
-        update_current_player
+        subject
         expect(response).to have_http_status(:ok)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :current_player, :name)).to eq current_player[:name]
@@ -101,7 +106,7 @@ RSpec.describe '/api/games/:game_name/current_player' do
       end
 
       it do
-        update_current_player
+        subject
         expect(response).to have_http_status(:ok)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :current_player, :name)).to eq current_player[:name]

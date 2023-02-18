@@ -6,11 +6,12 @@ RSpec.describe '/api/games/:game_name/players/:player_id/player_signals' do
   let(:game) { create(:game) }
 
   describe 'POST /create' do
-    subject :post_player_signals do
+    subject do
       post api_game_player_player_signals_url(game_name: game.name, player_id:),
            params:,
            headers: {
-             Authorization: authorization_header
+             Authorization: authorization_header,
+             'X-Requested-With': 'rspec'
            },
            as: :json
     end
@@ -41,7 +42,7 @@ RSpec.describe '/api/games/:game_name/players/:player_id/player_signals' do
           let(:params) { valid_param }
 
           it do
-            post_player_signals
+            subject
             expect(response).to have_http_status(:created)
             expect(response_json[:status]).to eq 'success'
             expect(response_json.dig(:data, :player_signal, :data)).to eq 'ok'
@@ -52,7 +53,7 @@ RSpec.describe '/api/games/:game_name/players/:player_id/player_signals' do
           let(:params) { invalid_param }
 
           it do
-            post_player_signals
+            subject
             expect(response).to have_http_status(:bad_request)
             expect(response_json[:status]).to eq 'fail'
           end
@@ -64,7 +65,7 @@ RSpec.describe '/api/games/:game_name/players/:player_id/player_signals' do
         let(:params) { valid_param }
 
         it do
-          post_player_signals
+          subject
           expect(response).to have_http_status(:unauthorized)
           expect(response_json[:status]).to eq 'fail'
         end
@@ -77,7 +78,7 @@ RSpec.describe '/api/games/:game_name/players/:player_id/player_signals' do
       let(:params) { valid_param }
 
       it do
-        post_player_signals
+        subject
         expect(response).to have_http_status(:not_found)
         expect(response_json[:status]).to eq 'error'
       end

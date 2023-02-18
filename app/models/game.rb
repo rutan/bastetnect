@@ -17,6 +17,7 @@
 #  index_games_on_name  (name) UNIQUE
 #
 class Game < ApplicationRecord
+  has_many :allowed_origins, dependent: :restrict_with_exception
   has_many :players, dependent: :restrict_with_exception
   has_many :game_signals, dependent: :restrict_with_exception
 

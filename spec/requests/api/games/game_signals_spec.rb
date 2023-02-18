@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe '/api/games/:game_name/game_signals' do
   describe 'GET /index' do
-    subject :index_game_signals do
+    subject do
       get api_game_game_signals_url(game_name: game.name), as: :json
     end
 
@@ -15,7 +15,7 @@ RSpec.describe '/api/games/:game_name/game_signals' do
     end
 
     it do
-      index_game_signals
+      subject
       expect(response).to have_http_status(:ok)
       expect(response_json[:status]).to eq 'success'
       expect(response_json.dig(:data, :game_signals).size).to eq 10
@@ -23,13 +23,14 @@ RSpec.describe '/api/games/:game_name/game_signals' do
   end
 
   describe 'POST /create' do
-    subject :create_game_signals do
+    subject do
       post api_game_game_signals_url(
         game_name: game.name,
         data:
       ),
            headers: {
-             Authorization: authorization_header
+             Authorization: authorization_header,
+             'X-Requested-With': 'rspec'
            },
            as: :json
     end
@@ -44,7 +45,7 @@ RSpec.describe '/api/games/:game_name/game_signals' do
         let(:data) { '1' }
 
         it do
-          create_game_signals
+          subject
           expect(response).to have_http_status(:created)
           expect(response_json[:status]).to eq 'success'
         end
@@ -54,7 +55,7 @@ RSpec.describe '/api/games/:game_name/game_signals' do
         let(:data) { '1' * 1000 }
 
         it do
-          create_game_signals
+          subject
           expect(response).to have_http_status(:bad_request)
           expect(response_json[:status]).to eq 'fail'
         end
@@ -66,7 +67,7 @@ RSpec.describe '/api/games/:game_name/game_signals' do
       let(:data) { '1' }
 
       it do
-        create_game_signals
+        subject
         expect(response).to have_http_status(:unauthorized)
         expect(response_json[:status]).to eq 'fail'
       end
@@ -77,7 +78,7 @@ RSpec.describe '/api/games/:game_name/game_signals' do
       let(:data) { '' }
 
       it do
-        create_game_signals
+        subject
         expect(response).to have_http_status(:unauthorized)
         expect(response_json[:status]).to eq 'fail'
       end

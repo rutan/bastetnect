@@ -5,6 +5,7 @@ module Api
     class ApplicationController < ::Api::ApplicationController
       before_action :game
       before_action :require_updatable_game!, if: :update_request?
+      before_action :require_check_cors!, if: :update_request?
 
       private
 
@@ -33,6 +34,15 @@ module Api
 
       def require_updatable_game!
         raise ForbiddenError, 'this game is frozen' if game.frozen?
+      end
+
+      def require_check_cors!
+        origin = request.headers['Origin']
+        requested_with = request.headers['X-Requested-With']
+        CorsChecker.new(origin:, requested_with:).check!
+        return if origin.blank?
+
+        raise ForbiddenError, 'this origin is not allowed' unless game.allowed_origins.pluck(:origin).include?(origin)
       end
 
       def require_login!

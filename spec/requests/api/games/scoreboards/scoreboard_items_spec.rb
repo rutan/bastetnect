@@ -6,7 +6,7 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
   let(:game) { create(:game) }
 
   describe 'GET /index' do
-    subject :get_scoreboard_items do
+    subject do
       get api_game_scoreboard_scoreboard_items_url(game_name: game.name, scoreboard_index:),
           as: :json
     end
@@ -17,7 +17,7 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
       let!(:scoreboard_items) { create_list(:scoreboard_item, 10, scoreboard:) }
 
       it do
-        get_scoreboard_items
+        subject
         expect(response).to have_http_status(:ok)
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :scoreboard_items).size).to eq scoreboard_items.size
@@ -26,11 +26,12 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
   end
 
   describe 'POST /create' do
-    subject :post_scoreboard_items do
+    subject do
       post api_game_scoreboard_scoreboard_items_url(game_name: game.name, scoreboard_index: scoreboard.index),
            params:,
            headers: {
-             Authorization: authorization_header
+             Authorization: authorization_header,
+             'X-Requested-With': 'rspec'
            },
            as: :json
     end
@@ -51,8 +52,7 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
 
         context 'when first record' do
           it do
-            expect { post_scoreboard_items }.to change(ScoreboardItem, :count).by(1)
-            post_scoreboard_items
+            expect { subject }.to change(ScoreboardItem, :count).by(1)
             expect(response).to have_http_status(:created)
             expect(response_json[:status]).to eq 'success'
             expect(response_json.dig(:data, :scoreboard_item, :score)).to eq params[:scoreboard_item][:score]
@@ -66,7 +66,7 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
 
           context 'when new record' do
             it do
-              expect { post_scoreboard_items }.not_to change(ScoreboardItem, :count)
+              expect { subject }.not_to change(ScoreboardItem, :count)
               expect(response).to have_http_status(:created)
               expect(response_json[:status]).to eq 'success'
               expect(response_json.dig(:data, :scoreboard_item, :score)).to eq params[:scoreboard_item][:score]
@@ -77,7 +77,7 @@ RSpec.describe '/api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_i
             let(:score) { 500 }
 
             it do
-              expect { post_scoreboard_items }.not_to change(ScoreboardItem, :count)
+              expect { subject }.not_to change(ScoreboardItem, :count)
               expect(response).to have_http_status(:created)
               expect(response_json[:status]).to eq 'success'
               expect(response_json.dig(:data, :scoreboard_item, :score)).to eq 1000
