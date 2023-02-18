@@ -38,7 +38,6 @@ RSpec.describe '/api/games' do
 
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :game, :name)).to eq game.name
-        expect(response_json.dig(:data, :game, :play_count)).to eq game.play_count
       end
     end
 
@@ -52,7 +51,6 @@ RSpec.describe '/api/games' do
 
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :game, :name)).to eq game.name
-        expect(response_json.dig(:data, :game, :play_count)).to eq game.play_count
       end
     end
 
@@ -66,7 +64,6 @@ RSpec.describe '/api/games' do
 
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :game, :name)).to eq game.name
-        expect(response_json.dig(:data, :game, :play_count)).to eq game.play_count
       end
     end
 

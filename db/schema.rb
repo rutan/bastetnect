@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161958) do
   create_table "games", force: :cascade do |t|
     t.string "name", limit: 32, null: false
     t.string "version", limit: 32, default: "0.0.0"
-    t.integer "play_count", default: 0
     t.integer "status", default: 0
     t.text "pem", null: false
     t.datetime "created_at", null: false

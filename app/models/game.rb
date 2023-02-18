@@ -7,7 +7,6 @@
 #  id         :bigint           not null, primary key
 #  name       :string(32)       not null
 #  pem        :text             not null
-#  play_count :integer          default(0)
 #  status     :integer          default("active")
 #  version    :string(32)       default("0.0.0")
 #  created_at :datetime         not null
@@ -26,7 +25,6 @@ class Game < ApplicationRecord
             length: { in: 1..32 },
             format: { with: /\A[a-z0-9\-_]+\z/ }
   validates :version, presence: true, format: { with: /\A\d+(?:\.\d+(?:\.\d+)?)?\z/ }
-  validates :play_count, inclusion: { in: 0.. }
 
   enum :status, {
     active: 0,

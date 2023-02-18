@@ -4,5 +4,5 @@
   id: player_signal.id,
   sender: render(partial: 'api/games/players/item', locals: { player: player_signal.sender }),
   data: player_signal.data,
-  createdAt: player_signal.created_at.to_i
+  created_at: player_signal.created_at.to_i
 }
