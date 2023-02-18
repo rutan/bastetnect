@@ -3,9 +3,7 @@
 class ErrorsController < ApplicationController
   include ErrorHandler
 
-  rescue_from StandardError, with: :render_500
-
   def show
-    raise env['action_dispatch.exception']
+    raise request.env['action_dispatch.exception']
   end
 end

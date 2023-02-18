@@ -5,6 +5,8 @@ module ErrorHandler
   include JsonHelper
 
   included do
+    rescue_from StandardError, with: :render_500 unless Rails.env.development?
+
     rescue_from ActionDispatch::Http::Parameters::ParseError, with: :render_400
     rescue_from ActionController::ParameterMissing, with: :render_400_by_parameter_missing
     rescue_from InvalidParameterError, with: :render_400_by_invalid_parameter
@@ -12,6 +14,7 @@ module ErrorHandler
     rescue_from UnauthorizedError, with: :render_401
     rescue_from ForbiddenError, with: :render_403
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
   end
 
   def render_400
