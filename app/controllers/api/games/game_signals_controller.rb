@@ -18,9 +18,10 @@ module Api
       # POST /api/games/:game_name/game_signals
       def create
         @game_signal = GameSignal.create!(
-          game:,
-          sender: current_player,
-          data: game_signal_params[:data] || ''
+          game_signal_params.merge(
+            game:,
+            sender: current_player
+          )
         )
 
         render :show, status: :created
@@ -29,7 +30,7 @@ module Api
       private
 
       def game_signal_params
-        params.permit(:data)
+        params.required(:game_signal).permit(:data)
       end
     end
   end

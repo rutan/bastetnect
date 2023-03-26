@@ -26,7 +26,9 @@ RSpec.describe '/api/games/:game_name/game_signals' do
     subject do
       post api_game_game_signals_url(
         game_name: game.name,
-        data:
+        game_signal: {
+          data:
+        }
       ),
            headers: {
              Authorization: authorization_header,
