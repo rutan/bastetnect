@@ -10,6 +10,7 @@ module Api
         @game_signals = game.game_signals
                             .joins(:sender)
                             .merge(Player.visible_for_list(current_player))
+                            .recent_received
                             .page(1)
                             .per(param_limit(max: 2000, default_value: 250))
       end

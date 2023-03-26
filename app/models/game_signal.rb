@@ -26,4 +26,8 @@ class GameSignal < ApplicationRecord
   belongs_to :sender, class_name: 'Player'
 
   validates :data, length: { within: 0..100 }
+
+  scope :recent_received, -> {
+    order(id: :desc)
+  }
 end
