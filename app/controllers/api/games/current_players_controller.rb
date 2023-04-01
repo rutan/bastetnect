@@ -13,7 +13,10 @@ module Api
       # POST /api/games/:game_name/current_player
       def create
         @current_player = Player.create!(
-          current_player_params.merge(game:)
+          current_player_params.merge(
+            game:,
+            last_play_at: Time.zone.now
+          )
         )
         @token = GameAuthorizer.new(game, @current_player).generate_token
 
@@ -23,7 +26,11 @@ module Api
       # PUT /api/games/:game_name/current_player
       def update
         @current_player = current_player
-        current_player.update(current_player_params)
+        current_player.update(
+          current_player_params.merge(
+            last_play_at: Time.zone.now
+          )
+        )
 
         render :show
       end
