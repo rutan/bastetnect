@@ -70,6 +70,8 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
+    base64 (0.3.0)
+    bigdecimal (3.1.8)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -80,6 +82,7 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    drb (2.2.3)
     erubi (1.11.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -122,6 +125,7 @@ GEM
     mini_portile2 (2.8.1)
     minitest (5.16.3)
     msgpack (1.6.0)
+    mutex_m (0.3.0)
     net-imap (0.3.2)
       date
       net-protocol
@@ -135,6 +139,7 @@ GEM
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    observer (0.1.2)
     parallel (1.22.1)
     parser (3.1.3.0)
       ast (~> 2.4.1)
@@ -232,12 +237,17 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  base64
+  bigdecimal
   bootsnap
   debug
+  drb
   factory_bot_rails
   jb
   jwt
   kaminari
+  mutex_m
+  observer
   pg (~> 1.1)
   puma (~> 5.0)
   rack-attack
@@ -250,7 +260,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.4.4p34
 
 BUNDLED WITH
    2.3.26

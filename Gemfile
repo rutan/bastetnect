@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.4.4'
 
 gem 'bootsnap', require: false
 gem 'puma', '~> 5.0'
@@ -13,6 +13,12 @@ gem 'pg', '~> 1.1'
 
 gem 'rack-attack'
 gem 'rack-cors'
+
+gem 'base64'
+gem 'bigdecimal'
+gem 'drb'
+gem 'mutex_m'
+gem 'observer'
 
 gem 'jb'
 gem 'jwt'

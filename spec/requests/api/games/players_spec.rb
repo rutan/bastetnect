@@ -31,7 +31,6 @@ RSpec.describe '/api/games/:game_name/players' do
       it do
         subject
         expect(response).to have_http_status(:ok)
-        puts response_json
         expect(response_json[:status]).to eq 'success'
         expect(response_json.dig(:data, :players).size).to eq 10
         expect(response_json.dig(:data, :players).first[:name]).to eq players.first.name
