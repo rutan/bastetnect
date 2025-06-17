@@ -10,7 +10,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ${CURRENT_PATH}:/app
+      - .:/app
       - bundle_volume:/usr/local/bundle
       - tmp_volume:/app/tmp
     depends_on:
