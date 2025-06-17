@@ -24,7 +24,7 @@
 FactoryBot.define do
   factory :player_signal do
     player
-    association :sender, factory: :player
+    sender factory: %i[player]
     data { 'data' }
   end
 end

@@ -11,8 +11,6 @@ class CorsChecker
   def check!
     require_requested_with!
     require_origin_equal_requested_with_origin! if origin.present?
-
-    true
   end
 
   def require_requested_with!
@@ -27,7 +25,7 @@ class CorsChecker
     @requested_with_origin =
       begin
         uri = URI.parse(requested_with)
-        if uri.scheme == 'http' || uri.scheme == 'https'
+        if %w[http https].include?(uri.scheme)
           uri.origin
         else
           ''

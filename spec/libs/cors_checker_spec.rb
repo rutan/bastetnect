@@ -16,13 +16,13 @@ RSpec.describe CorsChecker do
       context 'when requested_with is HTTPS URL' do
         let(:requested_with) { 'https://example.com/example.html' }
 
-        it { is_expected.to be true }
+        it { is_expected.to be_nil }
       end
 
       context 'when requested_with is text' do
         let(:requested_with) { 'freeText' }
 
-        it { is_expected.to be true }
+        it { is_expected.to be_nil }
       end
 
       context 'when requested_with is empty' do
@@ -40,7 +40,7 @@ RSpec.describe CorsChecker do
       context 'when requested_with is valid HTTPS URL' do
         let(:requested_with) { 'https://example.com/example.html' }
 
-        it { is_expected.to be true }
+        it { is_expected.to be_nil }
       end
 
       context 'when requested_with is invalid HTTPS URL' do

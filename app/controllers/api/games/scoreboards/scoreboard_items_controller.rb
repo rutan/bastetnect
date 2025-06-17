@@ -37,7 +37,7 @@ module Api
         private
 
         def item_params
-          params.require(:scoreboard_item).permit(:score)
+          params.expect(scoreboard_item: [:score])
         end
       end
     end

@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.4'
 
 gem 'bootsnap', require: false
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.0'
 gem 'rails', '~> 8.0.0'
 
 gem 'pg', '~> 1.1'
@@ -35,6 +35,8 @@ end
 group :development do
   gem 'annotaterb'
   gem 'rubocop'
+  gem 'rubocop-factory_bot'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'rubocop-rspec_rails'
 end

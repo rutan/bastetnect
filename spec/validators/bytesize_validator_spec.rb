@@ -19,24 +19,24 @@ describe BytesizeValidator, type: :validator do
     context 'when use minimum options' do
       let(:validate_option) do
         {
-          minimum: 100.byte
+          minimum: 100.bytes
         }
       end
 
       context 'when greater than' do
-        let(:data) { 'a' * 101.byte }
+        let(:data) { 'a' * 101.bytes }
 
         it { is_expected.to be_valid }
       end
 
       context 'when equal' do
-        let(:data) { 'a' * 100.byte }
+        let(:data) { 'a' * 100.bytes }
 
         it { is_expected.to be_valid }
       end
 
       context 'when less than' do
-        let(:data) { 'a' * 99.byte }
+        let(:data) { 'a' * 99.bytes }
 
         it { is_expected.not_to be_valid }
       end
@@ -45,24 +45,24 @@ describe BytesizeValidator, type: :validator do
     context 'when use maximum options' do
       let(:validate_option) do
         {
-          maximum: 100.byte
+          maximum: 100.bytes
         }
       end
 
       context 'when less than' do
-        let(:data) { 'a' * 99.byte }
+        let(:data) { 'a' * 99.bytes }
 
         it { is_expected.to be_valid }
       end
 
       context 'when equal' do
-        let(:data) { 'a' * 100.byte }
+        let(:data) { 'a' * 100.bytes }
 
         it { is_expected.to be_valid }
       end
 
       context 'when greater than' do
-        let(:data) { 'a' * 101.byte }
+        let(:data) { 'a' * 101.bytes }
 
         it { is_expected.not_to be_valid }
       end

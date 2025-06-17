@@ -23,8 +23,8 @@
 #
 FactoryBot.define do
   factory :game_signal do
-    association :game
-    association :sender, factory: :player
+    game
+    sender factory: %i[player]
 
     data { 'text' }
   end
