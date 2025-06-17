@@ -1,6 +1,0 @@
-# frozen_string_literal: true
-
-{
-  player: render(partial: 'api/games/players/item', locals: { player: scoreboard_item.player }),
-  score: scoreboard_item.score
-}

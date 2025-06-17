@@ -32,17 +32,6 @@ Rails.application.routes.draw do
             resources :player_signals, only: [:create]
           end
         end
-
-        # /api/games/:game_name/scoreboards
-        resources :scoreboards, param: :index, only: [:show] do
-          scope module: :scoreboards do
-            # /api/games/:game_name/scoreboards/:scoreboard_index/scoreboard_items
-            resources :scoreboard_items, only: [:index, :create]
-
-            # /api/games/:game_name/scoreboards/:scoreboard_index/current_user_item
-            resource :current_user_item, only: [:show]
-          end
-        end
       end
     end
   end
