@@ -11,7 +11,7 @@ RSpec.describe '/api/games' do
     before do
       create(:game, status: :active)
       create(:game, status: :hidden)
-      create(:game, status: :frozen)
+      create(:game, status: :suspended)
       create(:game, status: :dead)
     end
 
@@ -54,8 +54,8 @@ RSpec.describe '/api/games' do
       end
     end
 
-    context 'when frozen game' do
-      let(:game) { create(:game, status: :frozen) }
+    context 'when suspended game' do
+      let(:game) { create(:game, status: :suspended) }
       let(:game_name) { game.name }
 
       it do

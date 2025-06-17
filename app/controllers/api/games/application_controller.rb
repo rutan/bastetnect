@@ -33,7 +33,7 @@ module Api
       end
 
       def require_updatable_game!
-        raise ForbiddenError, 'this game is frozen' if game.frozen?
+        raise ForbiddenError, 'this game is suspended' if game.suspended?
       end
 
       def require_check_cors!

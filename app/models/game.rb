@@ -30,12 +30,12 @@ class Game < ApplicationRecord
   enum :status, {
     active: 0,
     hidden: 10,
-    frozen: 20,
+    suspended: 20,
     dead: 30
   }
 
   scope :visible, -> { where.not(status: :dead) }
-  scope :public_visible, -> { where(status: :active).or(where(status: :frozen)) }
+  scope :public_visible, -> { where(status: :active).or(where(status: :suspended)) }
 
   after_initialize :setup_default_attributes
 
