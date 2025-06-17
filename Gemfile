@@ -7,7 +7,7 @@ ruby '3.4.4'
 
 gem 'bootsnap', require: false
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0.0'
 
 gem 'pg', '~> 1.1'
 
@@ -33,7 +33,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
